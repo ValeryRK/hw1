@@ -47,3 +47,39 @@ INSERT INTO storehouses_products
 ;
 
 SELECT * FROM storehouses_products ORDER BY CASE WHEN value = 0 THEN 9999999999999999999999 ELSE value END;
+
+-- Задание 1. Подсчитайте средний возраст пользователей в таблице users
+
+-- создадим таблицу
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+	id serial PRIMARY KEY,
+	birthday_at DATE
+);
+
+-- заполним данными
+insert 
+	into users (birthday_at)
+	values 
+	('1988-4-4'),
+	('1899-9-3'),
+	('2011-11-14'),
+	('1978-7-28'),
+	('2005-12-3'),
+	('2011-7-1'),
+	('1899-3-20'),
+	('1999-6-2'),
+	('1966-6-11');
+
+-- подсчитаем средний возраст
+select avg(timestampdiff(year, birthday_at, now())) as mid_age from users;
+
+--Задание 2. Подсчитайте количество дней рождения, которые приходятся на каждый из дней недели.
+-- Следует учесть, что необходимы дни недели текущего года, а не года рождения.*/
+
+-- используем данные из прошлого задания
+
+select date_format(date(concat_ws('-', year(now()), month(birthday_at), day(birthday_at))), '%W') AS what_day,
+count(*) as total from users
+group by what_day;
