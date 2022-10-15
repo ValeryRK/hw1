@@ -1,0 +1,51 @@
+DROP TABLE IF EXISTS music;
+CREATE TABLE music(
+	id SERIAL,
+	user_id BIGINT UNSIGNED NOT NULL,
+	music_type_id BIGINT UNSIGNED NOT NULL,
+	body VARCHAR(255),
+	filename VARCHAR(255),
+	metadata ID3,  
+	created_at DATETIME DEFAULT NOW(),
+	update_at DATETIME ON UPDATE CURRENT_TIMESTAMP, 
+	
+	
+	PRIMARY KEY (user_id, music_type_id),
+	FOREIGN KEY(user_id,) REFERENCES users(id),
+	FOREIGN KEY(music_type_id) REFERENCES users(id),
+);
+
+
+DROP TABLE IF EXISTS photo;
+CREATE TABLE photo(
+	id SERIAL,
+	user_id BIGINT UNSIGNED NOT NULL,
+	photo_type_id BIGINT UNSIGNED NOT NULL,
+	body VARCHAR(255),
+	filename VARCHAR(255),
+	metadata EXIF,  
+	created_at DATETIME DEFAULT NOW(),
+	update_at DATETIME ON UPDATE CURRENT_TIMESTAMP, 
+	
+	
+	PRIMARY KEY (user_id, photo_type_id),
+	FOREIGN KEY(user_id,) REFERENCES users(id),
+	FOREIGN KEY(photo_type_id) REFERENCES users(id),
+);
+
+DROP TABLE IF EXISTS video;
+CREATE TABLE video(
+	id SERIAL,
+	user_id BIGINT UNSIGNED NOT NULL,
+	video_type_id BIGINT UNSIGNED NOT NULL,
+	body VARCHAR(255),
+	filename VARCHAR(255),
+	metadata MPG,  
+	created_at DATETIME DEFAULT NOW(),
+	update_at DATETIME ON UPDATE CURRENT_TIMESTAMP, 
+	
+	
+	PRIMARY KEY (user_id, video_type_id),
+	FOREIGN KEY(user_id,) REFERENCES users(id),
+	FOREIGN KEY(video_type_id) REFERENCES users(id),
+);
